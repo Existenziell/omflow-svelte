@@ -34,7 +34,7 @@ export default {
   }),
 
   '/matchme/': wrap({
-    asyncComponent: () => import('~/routes/Matchme.svelte')
+    asyncComponent: () => import('~/routes/MatchMe.svelte')
   }),
 
   '/map/': wrap({
