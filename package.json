@@ -1,0 +1,21 @@
+{
+  "name": "svelte-template-parcel",
+  "version": "1.0.0",
+  "license": "MIT",
+  "browserslist": [
+    "last 1 chrome versions"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\" ",
+    "server": "npm run dev --prefix server/",
+    "client": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-svelte": "^4.0.4",
+    "sass": "^1.23.0",
+    "svelte": "^3.12.1"
+  }
+}
