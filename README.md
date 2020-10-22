@@ -1,40 +1,69 @@
-# Svelte Template Parcel
+# Omflow
 
-This is a project template for Svelte apps with Parcel.js  
+Single Page Application for Omflow.yoga
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
 
-```bash
-npx degit alex-parra/svelte-template-parcel svelteParcel
-cd svelteParcel
+## Frontend
+
+Svelte, svelte-router-spa, parcel.js, bulma
+
+```
+parcel src/index.html
 ```
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+- [Local](http://localhost:1234)
 
-## Get started
 
-Install the dependencies...
+## Backend
 
-```bash
-cd svelteParcel
-yarn install
+RESTful JSON API
+Node.js - express - mongoose - multer
+
+```
+nodemon server.js
 ```
 
-...then start the dev server:
+- [Local](http://localhost:5000)
 
-```bash
-yarn dev
+
+## Heroku
+
+- [Dashboard](https://omflow-svelte.herokuapp.com/)
+
+```
+heroku login
+heroku logs --tail -a omflow-svelte
 ```
 
-Navigate to [localhost:1234](http://localhost:1234).  
-You should see your app running. Edit a component file in `src`, save it, and the page should reload with your changes.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
 
-## Build for Production
+## Links
 
-Run `yarn build` and then deploy the contents for the `dist` folder  
+- [Website](https://www.omflow.yoga/)
+- [Email](mailto:inspire@omflow.yoga)
+- [Facebook](https://www.facebook.com/omflowinspires)
+- [Instagram](https://www.instagram.com/omflow.yoga/)
+- [LinkedIn](https://www.linkedin.com/company/omflow)
+
 
 
 ---
 
-Created by [Alex Parra](https://github.com/alex-parra) on 2019-10-20.  
+Created by [Christof Bauer](https://github.com/Existenziell) on 2020-10-20.
+
+
+
+# History
+
+This project is based on this template using [degit](https://github.com/Rich-Harris/degit):
+
+```bash
+npx degit alex-parra/svelte-template-parcel svelteParcel
+cd svelteParcel
+npm install
+```
+
+

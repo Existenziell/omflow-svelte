@@ -1,4 +1,2 @@
-import { writable, derived } from 'svelte/store'
-
-export const teachers = writable([])
-export const sortedTeachers = derived(teachers, (value) => value.sort((a, b) => b.date - a.date))
+// export const API_URL = 'http://localhost:5000/api'
+export const token = window.localStorage.getItem("auth-token");

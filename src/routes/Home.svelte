@@ -1,15 +1,11 @@
 <script>
-  import Header from "~/components/Header.svelte";
-  import axios from 'axios';
   import { onMount } from "svelte";
-  import Router from 'svelte-spa-router'
-  import routes from './routes'
-
-  // props coming from a component (main.js)
-  export let appName;
-  export let token;
+  import { token } from '~/stores';
+  import axios from 'axios';
+  import Loading from "~/components/Loading.svelte";
 
   let API_URL = process.env.API_URL;
+  let loading = false;
   let loggedIn = false;
   let role = 'user';
 
@@ -34,19 +30,20 @@
   }
 
   onMount(async () => {
+    loading = true;
     loggedIn = await isLoggedIn();
     role = await getUserRole();
+    loading = false;
   });
 </script>
 
-<style>
-</style>
-
-<svelte:head>
-  <title>{appName}</title>
-</svelte:head>
-
-<div class="container">
-  <Header {loggedIn} {role} />
-  <Router {routes} />
-</div>
+{#if loading}
+  <Loading />
+{:else}
+  {#if loggedIn}
+    <h2>Welcome {name}</h2>
+  {/if}
+  loggedIn: {loggedIn}<br />
+  role: {role} <br />
+  token: {token}
+{/if}

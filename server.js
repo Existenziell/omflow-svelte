@@ -18,9 +18,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
-// Static toute to /public
-app.use(express.static(path.resolve(__dirname, 'public')));
-
 // Mongoose Connect
 mongoose.connect(db,
   {
@@ -34,17 +31,20 @@ mongoose.connect(db,
   }
 );
 
-// Routing
-const practicesRouter = require('./src/routes/practices');
-const teachersRouter = require('./src/routes/teachers');
-const usersRouter = require('./src/routes/users');
-const signupRouter = require('./src/routes/signup');
+// Backend Routing (API)
+const practicesRouter = require('./server/routes/practices');
+const teachersRouter = require('./server/routes/teachers');
+const usersRouter = require('./server/routes/users');
+const signupRouter = require('./server/routes/signup');
 
-// Mount the routers to express app
-app.use('/practices', practicesRouter);
-app.use('/teachers', teachersRouter);
-app.use('/users', usersRouter);
-app.use('/signup', signupRouter);
+// Mount the routers to the express app
+app.use('/api/practices', practicesRouter);
+app.use('/api/teachers', teachersRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/signup', signupRouter);
+
+// Static toute to /public
+app.use("/api", express.static(path.resolve(__dirname, 'public')));
 
 // Start server
 app.listen(port, () => {

@@ -1,6 +1,32 @@
+/* --------------------------------------------------------
+Main Global Style Sheet for Omflow
+
+version: 0.9
+last modified: 20.09.2020 by Christof Bauer
+author: Christof Bauer
+email: bauer.christof@gmail.com
+----------------------------------------------------------*/
+
+@font-face {
+  font-family: 'MetaPro';
+  src:
+    local('MetaPro'),
+    local('FFMetaProLight'),
+    url('../fonts/FFMetaProLight.TTF') format('truetype')
+}
+
 html {
   height: 100%;
   box-sizing: border-box;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'MetaPro', serif;
+  scroll-behavior: smooth;
 }
 
 *,
@@ -9,9 +35,121 @@ html {
   box-sizing: inherit;
 }
 
-body {
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+*:focus {
+  outline: none;
+}
+
+::-moz-selection {
+    color: #eee;
+    background: rgba(170,65,140,0.8);
+    text-shadow: none;
+}
+
+::selection {
+    color: #eee;
+    background: rgba(170,65,140,0.8);
+    text-shadow: none;
+}
+
+input {
+  outline: none;
+  border: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus,
+button:active {
+    outline: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    width: 60%;
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 1em 0;
+    padding: 0;
+}
+
+
+
+
+
+
+/* Create teacher */
+
+.admin-create-teacher, .admin-edit-teacher {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.teacher-image {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 110%;
+  transform: translateX(-50%);
+}
+
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+#file {
+  display: none;
+}
+
+#imageContainer {
+  height: 300px;
+  width: 300px;
+  border: 3px dashed darkgrey;
+  color: darkgrey;
+  background-color: #fafafa;
+  font-size: 30px;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 100px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-bottom: 25px;
+  position: relative;
+  overflow: hidden;
+}
+
+#imageTag {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 110%;
+  transform: translateX(-50%);
+}
+
+#errorMessage, #successMessage {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+#errorMessage {
+  color: red;
+}
+
+#successMessage {
+  color: green;
+}
+
+.hide {
+  display: none;
+}
+
+#imageContainer.dragging {
+  border-color: blue;
+  border-width: 10px;
+  opacity: .3;
 }
