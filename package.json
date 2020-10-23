@@ -1,6 +1,6 @@
 {
-  "name": "svelte-template-parcel",
-  "version": "1.0.0",
+  "name": "omflow-svelte",
+  "version": "0.8",
   "license": "MIT",
   "browserslist": [
     "last 1 chrome versions"
