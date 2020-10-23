@@ -16,17 +16,16 @@
     "serve": "parcel src/index.html"
   },
   "devDependencies": {
-    "concurrently": "^5.3.0",
-    "parcel-bundler": "^1.12.4",
-    "parcel-plugin-svelte": "^4.0.4",
     "sass": "^1.23.0",
-    "svelte": "^3.29.4"
+    "svelte": "^3.29.4",
+    "parcel-plugin-svelte": "^4.0.4"
   },
   "dependencies": {
     "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bulma": "^0.9.1",
+    "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
@@ -34,6 +33,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "nodemailer": "^6.4.14",
+    "parcel-bundler": "^1.12.4",
     "svelte-spa-router": "^3.0.4"
   }
 }
