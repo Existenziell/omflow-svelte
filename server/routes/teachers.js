@@ -139,4 +139,28 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.get('/byTagName/:id', async (req, res) => {
+  try {
+    Teacher.findOne({ tag: req.params.id })
+      .populate('levels')
+      .populate('styles')
+      .populate({
+        path: 'practices',
+        populate: { path: 'level', model: 'Level' }
+      })
+      .populate({
+        path: 'practices',
+        populate: { path: 'style', model: 'Style' }
+      })
+      .exec(function (err, teacher) {
+        if (err) {
+          res.status(400).json(err);
+          return;
+        }
+        res.json(teacher);
+      });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 module.exports = router;

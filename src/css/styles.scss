@@ -75,7 +75,17 @@ hr {
 }
 
 
+.navbar {
+  background: transparent;
+  width: 100%;
+}
 
+.navbar-brand {
+  background: url("../img/icons/logo-50.png") no-repeat;
+  text-indent: -9999px;
+  width: 50px;
+  height: 50px;
+}
 
 
 
@@ -84,6 +94,10 @@ hr {
 .admin-create-teacher, .admin-edit-teacher {
   width: 50%;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .teacher-image {

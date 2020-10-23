@@ -15,7 +15,7 @@ export default {
   '/teachers/': wrap({
     asyncComponent: () => import('~/routes/Teachers.svelte')
   }),
-  '/teacher/:id/': wrap({
+  '/teacher/:id': wrap({
     asyncComponent: () => import('~/routes/Teacher.svelte')
   }),
   '/teacher-create/': wrap({
