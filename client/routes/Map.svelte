@@ -1,6 +1,5 @@
 <script>
-  import Map from "../components/Map.svelte";
-  import MapMarker from "../components/MapMarker.svelte";
+  import MapCanvas from "../components/MapCanvas.svelte";
   import { onMount } from "svelte";
 
   let mapdata;
@@ -56,9 +55,5 @@
 </script>
 
 {#if !loading}
-  <Map lat={15} lon={20} zoom={1.9}>
-    {#each mapdata.features as marker}
-      <MapMarker {...marker} {mapdata} />
-    {/each}
-  </Map>
+  <MapCanvas lat={15} lon={20} zoom={1.9} {mapdata} />
 {/if}

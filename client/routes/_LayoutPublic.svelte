@@ -4,9 +4,7 @@
   import routes from "../routes";
 </script>
 
-<div class="app">
-  <div class="container is-fluid">
-    <Header />
-    <Router {routes} />
-  </div>
+<div class="container is-fluid">
+  <Header />
+  <Router {routes} />
 </div>

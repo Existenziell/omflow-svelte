@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import Teacher from "~/components/Teacher.svelte";
+  import { BarLoader } from "svelte-loading-spinners";
 
   const fetchTeachers = async () => {
     const res = await fetch(`${process.env.API_URL}/teachers`);
@@ -12,26 +13,22 @@
     }
   };
   const teachers = fetchTeachers();
-  const data = { amount: 1234 };
-  onMount(async () => {});
 </script>
 
 <style>
 </style>
 
-<div class="container is-fluid">
-  <section class="section">
-    <h1 class="title is-3">Teachers</h1>
-    {#await teachers}
-      <p>Fetching...</p>
-    {:then teachers}
-      <div class="teachers">
-        {#each teachers as teacher (teacher._id)}
-          <Teacher {...teacher} {data} />
-        {/each}
-      </div>
-    {:catch error}
-      <p>{error.message}</p>
-    {/await}
-  </section>
-</div>
+<section class="section">
+  <h1 class="title is-3">Teachers</h1>
+  {#await teachers}
+    <BarLoader color="#077D84" />
+  {:then teachers}
+    <div class="teachers">
+      {#each teachers as teacher (teacher._id)}
+        <Teacher {...teacher} />
+      {/each}
+    </div>
+  {:catch error}
+    <p>{error.message}</p>
+  {/await}
+</section>

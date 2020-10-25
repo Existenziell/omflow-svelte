@@ -65,7 +65,7 @@
   }
 </style>
 
-<button class="close" on:click={_onCancel}> Close </button>
+<button class="close" on:click|preventDefault={_onCancel}> Close </button>
 <h2>{message}</h2>
 <div class="login-form">
   <form on:submit|preventDefault={handleSubmit}>

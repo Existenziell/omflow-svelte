@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
     if (password.length < 6)
       return res.status(400).json({ msg: "The password needs to be at least 6 characters long." });
     if (password !== passwordCheck)
-      return res.status(400).json({ msg: "Enter the same password twice for verification." });
+      return res.status(400).json({ msg: "Please enter the same password twice for verification." });
 
     const existingUser = await User.findOne({ email: email });
     if (existingUser)
@@ -96,7 +96,7 @@ router.get('/confirmation/:id', (req, res) => {
         if (err) { return res.status(500).send({ msg: err.message }); }
         const msg = `
           <h1>Nice, your account has been verified :)</h1>
-          <p>You are ready to <a href="${process.env.FRONTEND_URL}/login">log in</a> to Omflow</p>`
+          <p>You are ready to <a href="${process.env.FRONTEND_URL}">log in</a> to Omflow</p>`
         res.status(200).send(msg);
       });
     });

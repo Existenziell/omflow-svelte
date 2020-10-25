@@ -1,26 +1,19 @@
 <script>
   import { onMount } from "svelte";
-  import { getContext } from "svelte";
-  import { mapbox, key } from "../mapbox.js";
+  import { mapbox } from "../mapbox.js";
 
-  const { getMap } = getContext(key);
-  const map = getMap();
-
+  export let lat;
+  export let lon;
+  export let zoom;
   export let mapdata;
 
+  let container;
+  let map;
+  let API_URL = process.env.API_URL;
   let geocoder;
 
   const addLayers = async () => {
     map.on("load", () => {
-      // ToDo: Remove this hacky cheat. Append geocoder in routes/Map.svelte to avoid this
-      let mapLayer = map.getLayer("clusters");
-      let mapSource = map.getSource("places");
-      if (mapSource !== undefined) {
-        return;
-      }
-      if (typeof mapLayer !== "undefined") {
-        return;
-      }
       map.addSource("places", {
         type: "geojson",
         data: mapdata, // Point to GeoJSON data.
@@ -211,14 +204,44 @@
     });
   };
 
-  onMount(async () => {
-    addLayers();
-    // ToDo: Remove this hacky cheat. Append geocoder in routes/Map.svelte to avoid this
-    const already = document.getElementsByClassName(
-      "mapboxgl-ctrl-geocoder--input"
-    );
-    if (already.length === 0) {
+  onMount(() => {
+    // Inject Mapbox CSS
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://unpkg.com/mapbox-gl/dist/mapbox-gl.css";
+
+    link.onload = () => {
+      map = new mapbox.Map({
+        container,
+        style: "mapbox://styles/mapbox/satellite-v9",
+        center: [lon, lat],
+        zoom,
+      });
+
+      // After Map is created, add Layers/Listeners and Geocoder/Geolocate
+      addLayers();
       createGeo();
-    }
+    };
+
+    document.head.appendChild(link);
+
+    return () => {
+      map.remove();
+      link.parentNode.removeChild(link);
+    };
   });
 </script>
+
+<style>
+  div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<div bind:this={container}>
+  {#if map}
+    <slot />
+  {/if}
+</div>

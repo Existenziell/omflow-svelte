@@ -27,7 +27,7 @@
   <div class="header-forms">
     {#if $isLoggedIn}
       <button
-        on:click={logoutAndRedirect}
+        on:click|preventDefault={logoutAndRedirect}
         class="btn btn-sm btn-outline-info">Logout</button>
     {:else}
       <Modal>

@@ -1,11 +1,15 @@
 <script>
+  import { BarLoader } from "svelte-loading-spinners";
+
   let name = "";
   let email = "";
   let password, passwordCheck;
   let result = null;
   let successMsg = "";
+  let loading = false;
 
   const handleSubmit = async () => {
+    loading = true;
     const user = { email, password, passwordCheck, name };
     const res = await fetch(`${process.env.API_URL}/signup`, {
       method: "POST",
@@ -13,6 +17,7 @@
       headers: { "Content-type": "application/json" },
     });
     const response = await res.json();
+    loading = false;
 
     if (res.ok) {
       successMsg = response.message;
@@ -32,8 +37,18 @@
   }
 </style>
 
-<div class="register-form">
+<div class="signup-form">
   <h1 class="title is-3">Signup to Omflow:</h1>
+
+  {#if loading}
+    <div class="is-flex">
+      <BarLoader color="#077D84" />
+    </div>
+  {/if}
+
+  {#if result && !loading}
+    <p class="error-msg error-msg-signup">{result}</p>
+  {/if}
 
   <p class="success">{successMsg}</p>
   <form on:submit|preventDefault={handleSubmit}>
@@ -60,10 +75,6 @@
       name="passwordCheck"
       placeholder="Retype password"
       required />
-
-    {#if result}
-      <p class="error-msg error-msg-register">{result}</p>
-    {/if}
     <input type="submit" class="btn btn-info" />
   </form>
 </div>

@@ -14,4 +14,4 @@
   }
 </style>
 
-<button on:click={onClose}>Close</button>
+<button on:click|preventDefault={onClose}>Close</button>
