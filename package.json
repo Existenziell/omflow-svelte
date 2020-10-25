@@ -55,6 +55,8 @@
     "rimraf": "^3.0.2",
     "sirv": "^1.0.7",
     "sirv-cli": "^1.0.8",
+    "svelte-cli": "^3.0.0",
+    "svelte-compiler": "^1.0.1",
     "svelte-router-spa": "^5.7.4",
     "svelte-routing": "^1.4.2",
     "svelte-spa-router": "^3.0.5"
