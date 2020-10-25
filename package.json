@@ -11,15 +11,15 @@
     "url": "git+https://github.com/Existenziell/omflow-svelte"
   },
   "scripts": {
-    "start": "sirv public --single",
+    "start": "run-p server:prod client:prod",
     "dev": "run-p server:dev client:dev",
     "prod": "run-p server:prod client:prod",
     "client:dev": "parcel client/index.html",
     "client:prod": "npm run build && npm run serve",
     "server:dev": "nodemon server/server.js --ignore client/ --port 3000",
     "server:prod": "node server/server.js",
-    "dev:build": "parcel build client/index.html",
-    "dev:serve": "parcel serve client/index.html",
+    "build": "parcel build client/index.html",
+    "serve": "parcel serve client/index.html",
     "clean": "rimraf public/build && rimraf dist/",
     "copy:assets": "copyfiles public/*.* dist/",
     "rollup:build": "rollup -c",
