@@ -1,30 +1,38 @@
 <script>
   import { link } from "svelte-spa-router";
+  import { logout, isLoggedIn, role } from "../stores";
+
   import Navigation from "./Navigation.svelte";
-  export let loggedIn;
-  export let role;
+  import Login from "./Login/Login.svelte";
+  import Modal from "./Login/Modal.svelte";
+
+  const logoutAndRedirect = () => {
+    isLoggedIn.set(false);
+    logout();
+  };
 </script>
 
 <style>
-  /* .header-forms {
-    position: absolute;
-    right: 20px;
-    top: 20px;
+  .header-container {
     display: flex;
-  } */
+    align-items: center;
+    justify-content: space-between;
+  }
 </style>
 
-<div class="is-flex is-align-items-center is-justify-content-space-between">
-  <Navigation {loggedIn} {role} />
+<!-- <pre>isLoggedIn: {JSON.stringify($isLoggedIn)}<br />Role: {JSON.stringify($role)}</pre> -->
+
+<div class="header-container">
+  <Navigation {$isLoggedIn} {$role} />
   <div class="header-forms">
-    {#if loggedIn}
-      <a
-        href="/logout"
-        class="btn btn-sm btn-outline-info"
-        id="logout-user"
-        use:link>Logout</a>
+    {#if $isLoggedIn}
+      <button
+        on:click={logoutAndRedirect}
+        class="btn btn-sm btn-outline-info">Logout</button>
     {:else}
-      <a href="/login" class="btn btn-sm btn-outline-info" use:link>Login</a>
+      <Modal>
+        <Login />
+      </Modal>
       <a href="/signup" class="btn btn-sm btn-outline-info" use:link>Signup</a>
     {/if}
   </div>

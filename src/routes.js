@@ -8,6 +8,10 @@ export default {
     asyncComponent: () => import('~/routes/Home.svelte')
   }),
 
+  '/signup': wrap({
+    asyncComponent: () => import('~/routes/Signup.svelte')
+  }),
+
   '/about': wrap({
     asyncComponent: () => import('~/routes/About.svelte')
   }),

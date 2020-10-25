@@ -2,18 +2,30 @@
   "name": "omflow-svelte",
   "version": "1.0.0",
   "license": "MIT",
+  "author": "Christof Bauer",
   "browserslist": [
     "last 1 chrome versions"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Existenziell/omflow-svelte"
+  },
   "scripts": {
-    "start": "concurrently \"npm run server:prod\" \"npm run client:prod\"",
-    "dev": "concurrently \"npm run server\" \"npm run client\" ",
-    "server": "nodemon server.js --ignore src/",
-    "client": "parcel src/index.html public/",
-    "server:prod": "node server.js",
+    "start": "sirv public --single",
+    "dev": "run-p server:dev client:dev",
+    "prod": "run-p server:prod client:prod",
+    "client:dev": "parcel src/index.html",
     "client:prod": "npm run build && npm run serve",
-    "build": "parcel build src/index.html",
-    "serve": "parcel src/index.html"
+    "server:dev": "nodemon server/server.js --ignore src/ --port 3000",
+    "server:prod": "node server/server.js",
+    "dev:build": "parcel build src/index.html",
+    "dev:serve": "parcel serve src/index.html",
+    "clean": "rimraf public/build && rimraf dist/",
+    "copy:assets": "copyfiles public/*.* dist/",
+    "rollup:build": "rollup -c",
+    "rollup:dev": "rollup -c -w",
+    "sirv:start": "sirv dist --single",
+    "sirv:start:dev": "sirv dist --dev --single"
   },
   "devDependencies": {
     "sass": "^1.23.0",
@@ -25,7 +37,9 @@
     "body-parser": "^1.19.0",
     "bulma": "^0.9.1",
     "concurrently": "^5.3.0",
+    "copyfiles": "^2.4.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mapbox-gl": "^1.12.0",
@@ -34,8 +48,15 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "nodemailer": "^6.4.14",
+    "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.12.4",
-    "svelte-spa-router": "^3.0.4",
-    "parcel-plugin-svelte": "^4.0.4"
+    "parcel-plugin-svelte": "^4.0.4",
+    "path": "^0.12.7",
+    "rimraf": "^3.0.2",
+    "sirv": "^1.0.7",
+    "sirv-cli": "^1.0.8",
+    "svelte-router-spa": "^5.7.4",
+    "svelte-routing": "^1.4.2",
+    "svelte-spa-router": "^3.0.5"
   }
 }

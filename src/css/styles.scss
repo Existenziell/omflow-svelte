@@ -75,21 +75,41 @@ hr {
 }
 
 
+/* ==========================================================================
+Variables
+========================================================================== */
+
+$brand: #077D84;
+$orange: #F78F52;
+$text: #646060;
+$error: #802000;
+$gradient: #3EAFC9;
+
+
+
+
+/* ==========================================================================
+Navbar
+========================================================================== */
+
 .navbar {
   background: transparent;
   width: 100%;
 }
 
 .navbar-brand {
-  background: url("../img/icons/logo-50.png") no-repeat;
+  background: url("../img/icons/logo-text-black.png") transparent no-repeat;
   text-indent: -9999px;
-  width: 50px;
-  height: 50px;
+  width: 180px;
+  height: 61px;
+  text-indent: -9999px;
+  background-size: cover;
 }
 
 
-
-/* Create teacher */
+/* ==========================================================================
+Create Teacher
+========================================================================== */
 
 .admin-create-teacher, .admin-edit-teacher {
   width: 50%;
@@ -166,4 +186,66 @@ hr {
   border-color: blue;
   border-width: 10px;
   opacity: .3;
+}
+
+
+/* ==========================================================================
+Login & Header
+========================================================================== */
+
+.header-forms {
+  display: flex;
+
+  a {
+    margin-left: 8px;
+  }
+}
+
+.login-form, .register-form {
+  width: 350px;
+  text-align: center;
+  margin: 0 auto;
+
+  h1 {
+    color: #4d4d4d;
+    font-size: 20px;
+    margin-top: 0px;
+  }
+
+  input[type="password"],
+  input[type="text"] {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+    box-sizing:border-box;
+
+    &:focus {
+      border: 1px solid $brand;
+    }
+  }
+
+  input[type="submit"] {
+    width: 100%;
+  }
+
+  .error-msg {
+    color: $error;
+    font-size: 18px;
+    margin: 0px 0px 10px;
+    position: relative;
+  }
+}
+
+.register-succes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-logged-in {
+  text-align: center;
+  font-size: 24px;
+  color: $error;
 }

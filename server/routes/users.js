@@ -15,7 +15,7 @@ router.post("/login", async (req, res) => {
     if (!email || !password)
       return res.status(400).json({ msg: "Not all fields have been entered." });
 
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ email: email }).populate({ path: 'role', select: 'name' });
     if (!user)
       return res
         .status(400)
@@ -39,7 +39,7 @@ router.post("/login", async (req, res) => {
             id: user._id,
             name: user.name,
             email: user.email,
-            role: user.role
+            role: user.role.name
           },
         });
       })
@@ -61,14 +61,16 @@ router.post(`/isTokenValid`, async (req, res) => {
     const user = await User.findById(verified.id);
     if (!user) return res.json(false);
 
-    return res.json(true);
+    return res.status(200).json(true);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.json(false);
+    // res.status(500).json({ error: err.message });
   }
 });
 
 router.get("/", auth, async (req, res) => {
   try {
+
     const user = await User.findById(req.user).populate({ path: 'role', select: 'name' });
 
     // If user is a teacher, populate with own classes

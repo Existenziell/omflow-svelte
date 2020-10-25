@@ -3,8 +3,10 @@
   import { fade } from "svelte/transition";
 
   export let params;
+
   let teacher;
   let visible = false;
+
   onMount(async () => {
     teacher = await (
       await fetch(`${process.env.API_URL}/teachers/byTagName/${params.id}`)

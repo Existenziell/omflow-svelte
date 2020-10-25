@@ -3,13 +3,14 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require("path");
 const morgan = require('morgan');
+const dotenv = require('dotenv');
 const cors = require('cors');
 
 require('dotenv').config();
 
 // Initialize the app
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 const db = process.env.MONGODG_URI;
 
 // Middleware
@@ -32,10 +33,10 @@ mongoose.connect(db,
 );
 
 // Backend Routing (API)
-const practicesRouter = require('./server/routes/practices');
-const teachersRouter = require('./server/routes/teachers');
-const usersRouter = require('./server/routes/users');
-const signupRouter = require('./server/routes/signup');
+const practicesRouter = require('./routes/practices');
+const teachersRouter = require('./routes/teachers');
+const usersRouter = require('./routes/users');
+const signupRouter = require('./routes/signup');
 
 // Mount the routers to the express app
 app.use('/api/practices', practicesRouter);
@@ -44,7 +45,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/signup', signupRouter);
 
 // Static toute to /public
-app.use("/api", express.static(path.resolve(__dirname, 'public')));
+app.use("/api", express.static(path.resolve(__dirname, '../public')));
 
 // Start server
 app.listen(port, () => {

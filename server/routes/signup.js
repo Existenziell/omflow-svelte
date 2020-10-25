@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
       from: 'no-reply@omflow.yoga',
       to: savedUser.email,
       subject: 'Email address verification',
-      html: `<h1>Hello ${savedUser.name}</h1>\n\nPlease verify your account by clicking <a href="http://${req.headers.host}/signup/confirmation/${token.token}">here</a>`
+      html: `<h1>Hello ${savedUser.name}</h1>\n\nPlease verify your account by clicking <a href="http://${req.headers.host}/api/signup/confirmation/${token.token}">here</a>`
     };
 
     // Save the verification token
@@ -65,7 +65,7 @@ router.post("/", async (req, res) => {
         .catch((error) => { return error });
 
       if (info.messageId) {
-        res.json({ message: 'A verification email has been sent to ' + savedUser.email });
+        res.json({ message: 'Success! A verification email has been sent to ' + savedUser.email });
       } else {
         res.json({ message: 'Mail not sent!' });
       }

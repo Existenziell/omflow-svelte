@@ -8,7 +8,7 @@ Single Page Application for Omflow.yoga
 Svelte, svelte-router-spa, parcel.js, bulma
 
 ```
-parcel src/index.html
+parcel client/index.html
 ```
 
 - [Local](http://localhost:1234)
@@ -20,7 +20,7 @@ RESTful JSON API
 Node.js - express - mongoose - multer
 
 ```
-nodemon server.js
+nodemon server/server.js
 ```
 
 - [Local](http://localhost:5000)

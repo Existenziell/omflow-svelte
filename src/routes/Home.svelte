@@ -1,47 +1,15 @@
 <script>
-  import { onMount } from "svelte";
-  import { token } from "~/stores";
-  import axios from "axios";
+  import { currentUser } from "../stores";
 
-  let API_URL = process.env.API_URL;
-  let loggedIn = false;
-  let role = "user";
-
-  const isLoggedIn = async () => {
-    if (token === null) {
-      localStorage.setItem("auth-token", "");
-      token = "";
-      return false;
-    }
-
-    const result = await axios.post(`${API_URL}/users/isTokenValid`, null, {
-      headers: { "x-auth-token": token },
-    });
-    return result.data;
-  };
-
-  const getUserRole = async () => {
-    let user = (
-      await axios.get(`${API_URL}/users/`, {
-        headers: { "x-auth-token": token },
-      })
-    ).data;
-    return user.role;
-  };
-
-  onMount(async () => {
-    loggedIn = await isLoggedIn();
-    role = await getUserRole();
-  });
+  let name = "to Omflow :)";
+  if ($currentUser) {
+    name = $currentUser.user.name;
+  }
 </script>
 
-{#if loggedIn}
-  <h2>Welcome {name}</h2>
-{/if}
-loggedIn:
-{loggedIn}<br />
-role:
-{role}
-<br />
-token:
-{token}
+<div class="container is-fluid">
+  <section class="section">
+    <h1 class="title is-3">Welcome {name}</h1>
+    <!-- {JSON.stringify($currentUser)} -->
+  </section>
+</div>

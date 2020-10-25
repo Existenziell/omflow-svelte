@@ -2,9 +2,7 @@
   import { link } from "svelte-spa-router";
   import { fade, fly } from "svelte/transition";
   import { onMount } from "svelte";
-
-  export let loggedIn;
-  export let role;
+  import { isLoggedIn, role } from "../stores";
 
   let visible = false;
 
@@ -61,10 +59,10 @@
           <li class="nav-item">
             <a href="/map" class="nav-link" use:link>Map</a>
           </li>
-          {#if loggedIn}
+          {#if $isLoggedIn}
             <li class="nav-item">
               <a href="/dashboard" class="nav-link" use:link transition:fade>
-                {#if role === 'user'}My Account{:else}Dashboard{/if}
+                {#if $role === 'user'}My Account{:else}Dashboard{/if}
               </a>
             </li>
           {/if}
