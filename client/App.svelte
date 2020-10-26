@@ -2,7 +2,7 @@
   import Header from "./components/Header.svelte";
   import Router from "svelte-spa-router";
   import routes from "./routes";
-  import { token, isLoggedIn, role, currentUser } from "./stores";
+  import { token, isLoggedIn, role, teachers, fetchTeachers } from "./stores";
   import { onMount } from "svelte";
 
   // props coming from a component (main.js)
@@ -25,9 +25,8 @@
   };
 
   onMount(async () => {
-    // Check localStorage
+    // Check localStorage & Verify token
     user = JSON.parse(localStorage.getItem("omflowUser"));
-    // Verify token
     if (user) {
       const verified = await verifyToken();
       if (verified === false) {
@@ -38,6 +37,9 @@
         role.set(user.user.role);
       }
     }
+
+    // Fetch teachers and put them in store ($teachers)
+    $teachers = await fetchTeachers();
   });
 </script>
 

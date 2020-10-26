@@ -25,3 +25,17 @@ export const logout = () => {
   token.set("");
   currentUser.set("");
 }
+
+// Expose teachers array to all components
+export const teachers = writable();
+
+// Load all teachers / called from App.svelte
+export const fetchTeachers = async () => {
+  const res = await fetch(`${process.env.API_URL}/teachers`);
+  const teachers = await res.json();
+  if (res.ok) {
+    return teachers;
+  } else {
+    throw new Error(teachers);
+  }
+};
