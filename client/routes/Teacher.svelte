@@ -14,9 +14,6 @@
   }
 </script>
 
-<style>
-</style>
-
 <section class="section">
   {#await promise}
     <BarLoader color="#077D84" />

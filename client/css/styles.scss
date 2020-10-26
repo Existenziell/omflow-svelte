@@ -24,7 +24,6 @@ body {
   min-height: 100%;
   margin: 0;
   padding: 0;
-  // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-family: 'MetaPro', serif;
   scroll-behavior: smooth;
 }
@@ -87,15 +86,9 @@ $gradient: #3EAFC9;
 
 
 
-
 /* ==========================================================================
-Navbar
+Navbar overrides (Necessary because background-url gets messed up by Parcel)
 ========================================================================== */
-
-.navbar {
-  background: transparent;
-  width: 100%;
-}
 
 .navbar-brand {
   background: url("../img/icons/logo-text-black.png") transparent no-repeat;
@@ -106,9 +99,7 @@ Navbar
   background-size: cover;
 }
 
-.nav-item .active {
-  color: red !important;
-}
+
 
 /* ==========================================================================
 Create Teacher (Necessary because not known before runtime)

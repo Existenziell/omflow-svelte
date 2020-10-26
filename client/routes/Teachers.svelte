@@ -4,15 +4,12 @@
   import { teachers } from "../stores";
 </script>
 
-<style>
-</style>
-
 <section class="section">
   <h1 class="title is-3">Teachers</h1>
   {#if !$teachers}
     <BarLoader color="#077D84" />
   {:else}
-    <div class="teachers">
+    <div class="card p-6 mb-4">
       {#each $teachers as teacher (teacher._id)}
         <Teacher {...teacher} />
       {/each}

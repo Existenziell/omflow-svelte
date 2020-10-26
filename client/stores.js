@@ -39,3 +39,18 @@ export const fetchTeachers = async () => {
     throw new Error(teachers);
   }
 };
+
+// Expose classes array to all components
+export const classes = writable();
+
+// Load all classes / called from App.svelte
+export const fetchClasses = async () => {
+  const res = await fetch(`${process.env.API_URL}/practices`);
+  const classes = await res.json();
+  if (res.ok) {
+    return classes;
+  } else {
+    throw new Error(classes);
+  }
+};
+

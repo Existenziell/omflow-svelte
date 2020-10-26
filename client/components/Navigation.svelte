@@ -21,6 +21,11 @@
 </script>
 
 <style>
+  .navbar {
+    background: transparent;
+    width: 100%;
+  }
+
   .nav-link {
     font-size: 18px;
   }
