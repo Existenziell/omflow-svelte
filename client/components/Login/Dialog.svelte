@@ -1,6 +1,6 @@
 <script>
   import { getContext } from "svelte";
-  import { token, currentUser, isLoggedIn } from "../../stores";
+  import { token, currentUser, isLoggedIn, role } from "../../stores";
 
   export let message;
   export let onCancel = () => {};
@@ -8,8 +8,9 @@
   const { close } = getContext("simple-modal");
 
   let email, password;
-
+  let errorMessage = "";
   let value;
+
   let onChange = () => {};
 
   function _onCancel() {
@@ -30,22 +31,17 @@
       const result = await res.json();
 
       if (res.ok) {
-        $currentUser = result;
+        currentUser.set(result);
         token.set(result.token);
         isLoggedIn.set(true);
+        role.set(result.user.role);
         _onCancel();
       } else {
-        displayError(result.msg);
+        errorMessage = result.msg;
       }
     } catch (err) {
-      displayError(err);
+      errorMessage = error;
     }
-  };
-
-  const displayError = (error) => {
-    const msg = document.querySelector(".error-msg-login");
-    msg.style.display = "block";
-    msg.innerHTML = error;
   };
 </script>
 
@@ -63,25 +59,37 @@
     right: 0;
     background: black;
   }
+  form {
+    width: 80%;
+    margin: 20px auto;
+  }
+  .error-msg {
+    color: orangered;
+    font-size: 18px;
+    margin-top: 15px;
+    text-align: center;
+  }
 </style>
 
 <button class="close" on:click|preventDefault={_onCancel}> Close </button>
 <h2>{message}</h2>
-<div class="login-form">
+<div class=" card p-5">
   <form on:submit|preventDefault={handleSubmit}>
     <input
       bind:value={email}
       type="text"
       name="email"
       placeholder="Email"
+      class="input"
       required />
     <input
       bind:value={password}
       type="password"
       name="password"
+      class="input mt-4"
       placeholder="Password"
       required />
-    <p class="error-msg error-msg-login" />
+    <p class="error-msg">{errorMessage}</p>
     <input type="submit" class="btn btn-info" value="Login" />
   </form>
 </div>

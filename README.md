@@ -5,7 +5,7 @@ Single Page Application for Omflow.yoga
 
 ## Frontend
 
-Svelte, svelte-router-spa, parcel.js, bulma
+Svelte, svelte-spa-router, parcel.js, bulma
 
 ```
 parcel client/index.html

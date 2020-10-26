@@ -11,8 +11,8 @@ email: bauer.christof@gmail.com
   font-family: 'MetaPro';
   src:
     local('MetaPro'),
-    local('FFMetaProLight'),
-    url('../fonts/FFMetaProLight.TTF') format('truetype')
+    local('FFMetaPro'),
+    url('../fonts/FFMetaProRegular.TTF') format('truetype')
 }
 
 html {
@@ -106,134 +106,24 @@ Navbar
   background-size: cover;
 }
 
+.nav-item .active {
+  color: red !important;
+}
 
 /* ==========================================================================
-Create Teacher
+Create Teacher (Necessary because not known before runtime)
 ========================================================================== */
-
-.admin-create-teacher, .admin-edit-teacher {
-  width: 50%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.teacher-image {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  width: 110%;
-  transform: translateX(-50%);
-}
-
-.image-upload {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
-}
-
-#file {
-  display: none;
-}
-
-#imageContainer {
-  height: 300px;
-  width: 300px;
-  border: 3px dashed darkgrey;
-  color: darkgrey;
-  background-color: #fafafa;
-  font-size: 30px;
-  text-align: center;
-  vertical-align: middle;
-  padding-top: 100px;
-  cursor: pointer;
-  border-radius: 50%;
-  margin-bottom: 25px;
-  position: relative;
-  overflow: hidden;
-}
 
 #imageTag {
   position: absolute;
-  top: -10px;
+  top: 0px;
   left: 50%;
   width: 110%;
   transform: translateX(-50%);
 }
 
-#errorMessage, #successMessage {
-  font-size: 18px;
-  margin-bottom: 25px;
-}
-
-#errorMessage {
-  color: red;
-}
-
-#successMessage {
-  color: green;
-}
-
-.hide {
-  display: none;
-}
-
 #imageContainer.dragging {
-  border-color: blue;
+  border-color: $brand;
   border-width: 10px;
-  opacity: .3;
+  opacity: 0.3;
 }
-
-
-/* ==========================================================================
-Login & Header
-========================================================================== */
-
-.header-forms {
-  display: flex;
-
-  a {
-    margin-left: 8px;
-  }
-}
-
-.login-form, .signup-form {
-  width: 350px;
-  text-align: center;
-  margin: 0 auto;
-
-  h1 {
-    color: #4d4d4d;
-    font-size: 20px;
-    margin-top: 0px;
-  }
-
-  input[type="password"],
-  input[type="text"] {
-    width: 100%;
-    padding: 8px 10px;
-    border: 1px solid #dddddd;
-    margin-bottom: 10px;
-    box-sizing:border-box;
-
-    &:focus {
-      border: 1px solid $brand;
-    }
-  }
-
-  input[type="submit"] {
-    width: 100%;
-  }
-
-  .error-msg {
-    color: $error;
-    font-size: 18px;
-    margin: 0px 0px 10px;
-    position: relative;
-  }
-}
-

@@ -1,17 +1,7 @@
 <script>
   import { onMount } from "svelte";
 
-  let API_URL = process.env.API_URL;
-  let allStyles = [];
-  let allLevels = [];
-  let res = "";
-
-  onMount(async () => {
-    res = await fetch(`${API_URL}/practices/levels`);
-    allLevels = await res.json();
-    res = await fetch(`${API_URL}/practices/styles`);
-    allStyles = await res.json();
-
+  export const initForm = async () => {
     const imageField = document.getElementById("file");
     const imageContainer = document.getElementById("imageContainer");
     const errorMessage = document.getElementById("errorMessage");
@@ -122,103 +112,67 @@
         imageContainer.removeChild(theImageTag);
         imageField.value = null;
       }
-
       errorMessage.classList.add("hide");
       successMessage.classList.add("hide");
     }
+  };
+
+  onMount(async () => {
+    initForm();
   });
 </script>
 
 <style>
+  .image-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  #file {
+    display: none;
+  }
+  #imageContainer {
+    height: 300px;
+    width: 300px;
+    border: 3px dashed darkgrey;
+    color: darkgrey;
+    background-color: #fafafa;
+    font-size: 30px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 100px;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+  }
+  #errorMessage,
+  #successMessage {
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+  #errorMessage {
+    color: red;
+  }
+  #successMessage {
+    color: green;
+  }
+  .hide {
+    display: none;
+  }
 </style>
 
-<section class="section admin-create-teacher">
-  <h1 class="title is-3">Create a new Teacher</h1>
-
-  <form
-    id="admin-create-teacher"
-    action="{API_URL}/teachers/create/"
-    method="POST">
-    <div class="image-upload">
-      <label for="file" id="imageContainer">
-        <input
-          type="file"
-          id="file"
-          name="file"
-          accept="image/png, image/jpeg" />
-        Click here to upload or
-        <b>drag-and-drop</b>
-        an image...
-      </label>
-      <p id="errorMessage" class="hide" />
-      <p id="successMessage" class="hide" />
-      <a href="/" id="clearImage">Clear</a>
-    </div>
-
-    <div class="form-group">
-      <label for="">Name:</label>
-      <input type="text" class="form-control teacher-name" required />
-    </div>
-    <div class="form-group">
-      <label for="">Description:</label>
-      <textarea class="form-control teacher-description" />
-    </div>
-
-    <div class="form-group">
-      <label for="teacher-styles">Styles:</label>
-      <select multiple class="form-control" id="teacher-styles">
-        {#each allStyles as style (style._id)}
-          <option value={style._id}>{style.identifier}</option>
-        {/each}
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="teacher-levels">Levels:</label>
-      <select multiple class="form-control" id="teacher-levels">
-        {#each allLevels as level (level._id)}
-          <option value={level._id}>{level.identifier}</option>
-        {/each}
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="">Location/Address:</label>
-      <input type="text" class="form-control teacher-address" />
-    </div>
-    <div class="form-group">
-      <label for="">Coordinates (Longitude):</label>
-      <input type="number" class="form-control teacher-coordinates" required />
-    </div>
-    <div class="form-group">
-      <label for="">Coordinates (Latitude):</label>
-      <input type="number" class="form-control teacher-coordinates" required />
-    </div>
-    <div class="form-group">
-      <label for="">Quote:</label>
-      <input type="text" class="form-control teacher-quote" />
-    </div>
-    <div class="form-group">
-      <label for="">Instagram:</label>
-      <input type="text" class="form-control teacher-instagram" />
-    </div>
-    <div class="form-group">
-      <label for="">Preferred pose:</label>
-      <input type="text" class="form-control teacher-pose" />
-    </div>
-
-    <div class="form-group">
-      <p class="server-msg" />
-      <input
-        type="submit"
-        id="admin-save-teacher"
-        class="btn btn-sm btn-outline-info"
-        value="Save" />
-      <a
-        href="/dashboard"
-        value="Cancel"
-        class="btn btn-link"
-        data-link>Cancel</a>
-    </div>
-  </form>
-</section>
+<div class="image-upload">
+  <label for="file" id="imageContainer">
+    <input type="file" id="file" name="file" accept="image/png, image/jpeg" />
+    Click here to upload or
+    <b>drag-and-drop</b>
+    an image...
+  </label>
+  <p id="errorMessage" class="hide" />
+  <p id="successMessage" class="hide" />
+  <a href="/" id="clearImage">Clear</a>
+</div>

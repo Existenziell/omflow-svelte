@@ -1,5 +1,5 @@
 <script>
-  import { link } from "svelte-spa-router";
+  import { link, push } from "svelte-spa-router";
   import { logout, isLoggedIn, role } from "../stores";
 
   import Navigation from "./Navigation.svelte";
@@ -7,8 +7,10 @@
   import Modal from "./Login/Modal.svelte";
 
   const logoutAndRedirect = () => {
-    isLoggedIn.set(false);
+    // Reset localStorage and set values in store
     logout();
+    // Navigate to / (Router)
+    push("/");
   };
 </script>
 
@@ -17,6 +19,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .header-forms {
+    display: flex;
+    gap: 10px;
+    margin-right: 20px;
   }
 </style>
 

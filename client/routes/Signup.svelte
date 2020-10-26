@@ -35,9 +35,13 @@
     font-size: 20px;
     margin-bottom: 20px;
   }
+  .container {
+    width: 60%;
+    margin: 20px auto;
+  }
 </style>
 
-<div class="signup-form">
+<div class="container">
   <h1 class="title is-3">Signup to Omflow:</h1>
 
   {#if loading}
@@ -49,32 +53,86 @@
   {#if result && !loading}
     <p class="error-msg error-msg-signup">{result}</p>
   {/if}
-
   <p class="success">{successMsg}</p>
-  <form on:submit|preventDefault={handleSubmit}>
-    <input
-      bind:value={name}
-      type="text"
-      name="name"
-      placeholder="Name (optional)" />
-    <input
-      bind:value={email}
-      type="text"
-      name="email"
-      placeholder="Email"
-      required />
-    <input
-      bind:value={password}
-      type="password"
-      name="password"
-      placeholder="Password"
-      required />
-    <input
-      bind:value={passwordCheck}
-      type="password"
-      name="passwordCheck"
-      placeholder="Retype password"
-      required />
-    <input type="submit" class="btn btn-info" />
+
+  <form on:submit|preventDefault={handleSubmit} class="card p-6">
+    <div class="field">
+      <label for="" class="label">Email</label>
+      <div class="control has-icons-left has-icons-right">
+        <input
+          bind:value={email}
+          class="input"
+          type="email"
+          placeholder="Email input" />
+        <span class="icon is-small is-left">
+          <i class="fa fa-envelope" />
+        </span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="" class="label">Password</label>
+      <p class="control has-icons-left">
+        <input
+          bind:value={password}
+          class="input"
+          type="password"
+          placeholder="Password" />
+        <span class="icon is-small is-left"> <i class="fa fa-lock" /> </span>
+      </p>
+    </div>
+
+    <div class="field">
+      <label for="" class="label">Password Check</label>
+      <p class="control has-icons-left">
+        <input
+          bind:value={passwordCheck}
+          class="input"
+          type="password"
+          placeholder="Retype password" />
+        <span class="icon is-small is-left"> <i class="fa fa-lock" /> </span>
+      </p>
+    </div>
+
+    <div class="field">
+      <label for="" class="label">User-Name</label>
+      <div class="control">
+        <input
+          bind:value={name}
+          class="input"
+          type="text"
+          placeholder="This is optional" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="" class="label">How did you hear about Omflow?</label>
+      <div class="control">
+        <div class="select">
+          <select>
+            <option>Select</option>
+            <option>Facebook</option>
+            <option>Instagram</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <label for="" class="checkbox">
+          <input type="checkbox" />
+          I agree to the
+          <a href="/">terms & conditions</a>
+        </label>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control"><button class="button is-link">Submit</button></div>
+      <div class="control">
+        <button class="button is-link is-light">Cancel</button>
+      </div>
+    </div>
   </form>
 </div>

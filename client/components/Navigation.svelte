@@ -1,10 +1,19 @@
 <script>
   import { link } from "svelte-spa-router";
-  import { fade, fly } from "svelte/transition";
+  import { fly } from "svelte/transition";
   import { onMount } from "svelte";
-  import { isLoggedIn, role } from "../stores";
 
   let visible = false;
+
+  let links = [
+    "About",
+    "Teachers",
+    "Classes",
+    "Schedule",
+    "MatchMe",
+    "Map",
+    "Dashboard",
+  ];
 
   onMount(async () => {
     visible = true;
@@ -12,6 +21,12 @@
 </script>
 
 <style>
+  .nav-link {
+    font-size: 18px;
+  }
+  a.nav-link:focus {
+    font-weight: bold;
+  }
 </style>
 
 {#if visible}
@@ -41,31 +56,11 @@
       <!-- Center -->
       <div class="mx-auto">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a href="/about" class="nav-link" use:link>About</a>
-          </li>
-          <li class="nav-item">
-            <a href="/teachers" class="nav-link" use:link>Teachers</a>
-          </li>
-          <li class="nav-item">
-            <a href="/classes" class="nav-link" use:link>Classes</a>
-          </li>
-          <li class="nav-item">
-            <a href="/schedule" class="nav-link" use:link>Schedule</a>
-          </li>
-          <li class="nav-item">
-            <a href="/matchme" class="nav-link" use:link>MatchMe</a>
-          </li>
-          <li class="nav-item">
-            <a href="/map" class="nav-link" use:link>Map</a>
-          </li>
-          {#if $isLoggedIn}
+          {#each links as l}
             <li class="nav-item">
-              <a href="/dashboard" class="nav-link" use:link transition:fade>
-                {#if $role === 'user'}My Account{:else}Dashboard{/if}
-              </a>
+              <a href="/{l.toLowerCase()}" class="nav-link" use:link>{l}</a>
             </li>
-          {/if}
+          {/each}
         </ul>
       </div>
     </div>

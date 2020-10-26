@@ -1,7 +1,8 @@
 <script>
-  import LayoutPublic from "./routes/_LayoutPublic.svelte";
-  import LayoutAdmin from "./routes/_LayoutAdmin.svelte";
-  import { token, isLoggedIn, role } from "./stores";
+  import Header from "./components/Header.svelte";
+  import Router from "svelte-spa-router";
+  import routes from "./routes";
+  import { token, isLoggedIn, role, currentUser } from "./stores";
   import { onMount } from "svelte";
 
   // props coming from a component (main.js)
@@ -47,8 +48,5 @@
   <title>{appName}</title>
 </svelte:head>
 
-{#if role === 'admin'}
-  <LayoutAdmin />
-{:else}
-  <LayoutPublic />
-{/if}
+<Header />
+<Router {routes} />

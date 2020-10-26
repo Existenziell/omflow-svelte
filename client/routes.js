@@ -23,7 +23,7 @@ export default {
     asyncComponent: () => import('~/routes/Teacher.svelte')
   }),
   '/teacher-create/': wrap({
-    asyncComponent: () => import('~/routes/TeacherCreate.svelte')
+    asyncComponent: () => import('~/routes/dashboard/TeacherCreate.svelte')
   }),
 
   '/classes/': wrap({
@@ -46,7 +46,7 @@ export default {
   }),
 
   '/dashboard/': wrap({
-    asyncComponent: () => import('~/routes/Dashboard.svelte')
+    asyncComponent: () => import('~/routes/dashboard/Dashboard.svelte')
   }),
 
   // Catch-all - this is optional, but if present it must be the last

@@ -7,9 +7,6 @@
   }
 </script>
 
-<div class="container is-fluid">
-  <section class="section">
-    <h1 class="title is-3">Welcome {name}</h1>
-    <!-- {JSON.stringify($currentUser)} -->
-  </section>
-</div>
+<section class="section">
+  <h1 class="title is-3">Welcome {name}</h1>
+</section>
