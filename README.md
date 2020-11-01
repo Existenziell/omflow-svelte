@@ -3,7 +3,7 @@
 Single Page Application for Omflow.yoga
 
 
-## Frontend
+## Tech
 
 Svelte, svelte-spa-router, parcel.js, bulma
 
@@ -14,16 +14,12 @@ parcel client/index.html
 - [Local](http://localhost:1234)
 
 
-## Backend
+## API
 
 RESTful JSON API
 Node.js - express - mongoose
 
-```
-nodemon server/server.js
-```
-
-- [Local](http://localhost:5000)
+- [Local](http://localhost:3000)
 
 
 ## Heroku
@@ -51,7 +47,6 @@ heroku logs --tail -a omflow-svelte
 
 ## ToDo
 
-- practices are reOccurring = true|false
 - Scheduler: calendar / timezones / display / filter / datepicker
 - Navigation: burger
 - Glossary

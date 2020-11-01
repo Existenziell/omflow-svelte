@@ -12,11 +12,10 @@
   },
   "scripts": {
     "start": "npm run build && npm run dev",
-    "dev": "npx parcel index.html",
+    "dev": "parcel index.html",
     "build": "parcel build index.html",
     "prebuild": "npm run clean",
     "postbuild": "npm run copy:assets",
-    "serve": "parcel serve index.html",
     "clean": "rimraf dist/ .cache/",
     "copy:assets": "copyfiles public/* dist/"
   },
