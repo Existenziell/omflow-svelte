@@ -4,7 +4,7 @@
   import { onMount } from "svelte";
   import Login from "./Login/Login.svelte";
   import Modal from "./Login/Modal.svelte";
-  import { isLoggedIn, logout } from "../stores";
+  import { currentUser, logout } from "../stores";
 
   let visible = false;
 
@@ -87,7 +87,7 @@
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            {#if $isLoggedIn}
+            {#if $currentUser}
               <button
                 on:click|preventDefault={logoutAndRedirect}
                 class="button is-small">Logout</button>

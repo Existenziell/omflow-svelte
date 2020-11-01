@@ -52,12 +52,9 @@ heroku logs --tail -a omflow-svelte
 ## ToDo
 
 - practices are reOccurring = true|false
-- Scheduler: timezones / display / filter
+- Scheduler: calendar / timezones / display / filter / datepicker
 - Navigation: burger
 - Glossary
-
-- localStorage strategy... Effects: stores.js / simplify and rename omflowUser -> omflower
-- Generalize store: isLoggedIn, user(omflower), logout, teachers, classes, ... (token)
 
 ---
 

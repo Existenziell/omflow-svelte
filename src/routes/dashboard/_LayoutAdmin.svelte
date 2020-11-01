@@ -1,6 +1,6 @@
 <script>
   import { beforeUpdate, onMount } from "svelte";
-  import { teachers, classes, token } from "../../stores";
+  import { teachers, classes, currentUser } from "../../stores";
   import { link } from "svelte-spa-router";
   import { BarLoader } from "svelte-loading-spinners";
   import moment from "moment";
@@ -39,7 +39,7 @@
 
   onMount(async () => {
     const res = await fetch(`${process.env.API_URL}/users/all`, {
-      headers: { "x-auth-token": $token },
+      headers: { "x-auth-token": $currentUser.token },
     });
     users = await res.json();
   });
@@ -58,6 +58,9 @@
   }
   th:hover {
     cursor: pointer;
+  }
+  img {
+    width: 50px;
   }
 </style>
 
@@ -78,9 +81,10 @@
         <table class="table is-fullwidth">
           <thead>
             <tr>
+              <th>Image</th>
               <th on:click={sort('name')}>Name</th>
               <th on:click={sort('practices')}>#Classes</th>
-              <th on:click={sort('image')}>Image</th>
+              <th on:click={sort('quote')}>Quote</th>
               <th on:click={sort('address')}>Location</th>
               <th on:click={sort('pose')}>Pose</th>
               <th on:click={sort('createdAt')}>Member Since</th>
@@ -89,9 +93,12 @@
           <tbody>
             {#each teachers as t}
               <tr>
+                <td>
+                  <img src="{process.env.API_URL}/{t.image}" alt={t.tag} />
+                </td>
                 <td>{t.name}</td>
                 <td>{t.practices.length}</td>
-                <td>{t.image}</td>
+                <td>{t.quote.substring(0, 40)} ...</td>
                 <td>{t.address}</td>
                 <td>{t.pose}</td>
                 <td>{moment(t.createdAt, 'YYYYMMDD').fromNow()}</td>
@@ -123,6 +130,7 @@
               <th on:click={sort('price')}>Price</th>
               <th on:click={sort('duration')}>Duration</th>
               <th on:click={sort('date')}>Date</th>
+              <th>Recurring?</th>
             </tr>
           </thead>
           <tbody>
@@ -134,6 +142,7 @@
                 <td>{c.price} $</td>
                 <td>{c.duration} min</td>
                 <td>{moment(c.date).format('MM/DD/YYYY')}</td>
+                <td>{c.recurring}</td>
               </tr>
             {/each}
           </tbody>

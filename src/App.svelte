@@ -1,17 +1,16 @@
 <script>
+  import { onMount } from "svelte";
   import Header from "./components/Header.svelte";
   import Router from "svelte-spa-router";
   import routes from "./routes";
+
   import {
-    token,
-    isLoggedIn,
-    role,
+    currentUser,
     teachers,
     fetchTeachers,
     classes,
     fetchClasses,
   } from "./stores";
-  import { onMount } from "svelte";
 
   // Props coming from main.js
   export let appName;
@@ -34,17 +33,15 @@
 
   onMount(async () => {
     // Check localStorage
-    user = JSON.parse(localStorage.getItem("omflowUser"));
+    user = JSON.parse(localStorage.getItem("omflower"));
     if (user) {
       // Let the server verify the token
       const verified = await verifyToken();
       if (verified === false) {
         localStorage.clear();
       } else {
-        isLoggedIn.set(true);
-        // ToDo: Can be simplified
-        token.set(user.token);
-        role.set(user.user.role.identifier);
+        // If verified, save in Store -> localStorage
+        currentUser.set(user);
       }
     }
 

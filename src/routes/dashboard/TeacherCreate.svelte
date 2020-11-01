@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { push } from "svelte-spa-router";
-  import { token } from "../../stores";
+  import { currentUser, teachers } from "../../stores";
   import { link } from "svelte-spa-router";
   import ImageUpload from "./ImageUpload.svelte";
   import { log } from "console";
@@ -37,15 +37,16 @@
     const response = await fetch(`${API_URL}/teachers/create/`, {
       method: "POST",
       body: formData,
-      headers: { "x-auth-token": $token },
+      headers: { "x-auth-token": $currentUser.token },
     });
     const result = await response.json();
 
     if (response) {
       message = response.data;
       displayServerMsg(response.data);
+
       // ToDo: Update store...
-      // $teachers = [...$teachers, response.data]
+      $teachers = [...$teachers, result];
       push("/dashboard");
     }
   };
@@ -98,7 +99,7 @@
       <div class="field">
         <label for="" class="label">Styles:</label>
         <div class="select is-multiple mr-5">
-          <select multiple bind:value={styles} size="5">
+          <select multiple bind:value={styles} size="5" required>
             {#each allStyles as style (style._id)}
               <option value={style._id}>{style.identifier}</option>
             {/each}
@@ -108,7 +109,7 @@
       <div class="field">
         <label for="" class="label">Levels:</label>
         <div class="select is-multiple">
-          <select multiple bind:value={levels} size="5">
+          <select multiple bind:value={levels} size="5" required>
             {#each allLevels as level (level._id)}
               <option value={level._id}>{level.identifier}</option>
             {/each}
@@ -135,7 +136,8 @@
           bind:value={coordinates}
           class="input"
           type="text"
-          placeholder="Format: 15.3421, -13.34323 (https://www.latlong.net/)" />
+          placeholder="Format: 15.3421, -13.34323 (https://www.latlong.net/)"
+          required />
       </div>
     </div>
 

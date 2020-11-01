@@ -1,6 +1,8 @@
 <script>
+  import { log } from "console";
+
   import { getContext } from "svelte";
-  import { token, currentUser, isLoggedIn, role } from "../../stores";
+  import { currentUser } from "../../stores";
 
   export let message;
   export let onCancel = () => {};
@@ -30,13 +32,9 @@
         headers: { "Content-type": "application/json" },
       });
       const result = await res.json();
-
       if (res.ok) {
         // Set values in $store -> localStorage
         currentUser.set(result);
-        token.set(result.token);
-        isLoggedIn.set(true);
-        role.set(result.user.role.identifier);
         _onCancel();
       } else {
         errorMessage = result.msg;
@@ -60,7 +58,7 @@
     margin: 20px auto;
   }
   .error-msg {
-    color: orangered;
+    color: salmon;
     font-size: 18px;
     margin-top: 15px;
     text-align: center;
