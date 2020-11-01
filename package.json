@@ -11,7 +11,7 @@
     "url": "git+https://github.com/Existenziell/omflow-svelte"
   },
   "scripts": {
-    "start": "npm run dev",
+    "start": "npm run build && npm run dev",
     "dev": "npx parcel index.html",
     "build": "parcel build index.html",
     "prebuild": "npm run clean",
@@ -36,6 +36,7 @@
     "svelte-cli": "^3.0.0",
     "svelte-compiler": "^1.0.1",
     "svelte-loading-spinners": "^0.1.1",
-    "svelte-spa-router": "^3.0.5"
+    "svelte-spa-router": "^3.0.5",
+    "timeUtils": "^2.0.0"
   }
 }
