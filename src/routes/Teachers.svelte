@@ -1,5 +1,5 @@
 <script>
-  import Teacher from "~/components/Teacher.svelte";
+  import Teacher from "../components/Teacher.svelte";
   import { BarLoader } from "svelte-loading-spinners";
   import { teachers } from "../stores";
 </script>

@@ -1,6 +1,6 @@
 <script>
   import { link } from "svelte-spa-router";
-  import Teacher from "~/components/Teacher.svelte";
+  import Teacher from "../components/Teacher.svelte";
   export let name, description, image, tag, quote, instagram;
 </script>
 

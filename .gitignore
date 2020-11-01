@@ -9,7 +9,3 @@ dist
 
 # dotenv environment variables file
 .env
-
-# server
-server/.env
-server/node_modules

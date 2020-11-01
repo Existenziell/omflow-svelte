@@ -52,7 +52,7 @@
     in:fly={{ y: -200, duration: 500, delay: 400 }}>
     <div class="navbar-brand">
       <a class="navbar-item" href="/" use:link aria-hidden="true">
-        <img src="/img/icons/logo-text-black.png" alt="Logo" />
+        <img src="public/logo-text-black.png" alt="Logo" />
       </a>
 
       <!-- Collapse button -->
