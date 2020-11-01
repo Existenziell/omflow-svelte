@@ -120,8 +120,8 @@
 
     <div class="field">
       <div class="control">
-        <label for="" class="checkbox">
-          <input type="checkbox" />
+        <label for="terms" class="checkbox">
+          <input type="checkbox" id="terms" />
           I agree to the
           <a href="/">terms & conditions</a>
         </label>
@@ -129,10 +129,10 @@
     </div>
 
     <div class="field is-grouped">
-      <div class="control"><button class="button is-link">Submit</button></div>
       <div class="control">
-        <button class="button is-link is-light">Cancel</button>
+        <button class="button is-primary ">Submit</button>
       </div>
+      <div class="control"><button class="button is-light">Cancel</button></div>
     </div>
   </form>
 </div>

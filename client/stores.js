@@ -20,6 +20,7 @@ currentUser.subscribe((value) => {
 // Global logout function
 export const logout = () => {
   localStorage.clear();
+  // Reset values in $store
   isLoggedIn.set(false);
   role.set("user");
   token.set("");

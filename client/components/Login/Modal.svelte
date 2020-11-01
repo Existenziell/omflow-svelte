@@ -180,6 +180,16 @@
     -webkit-appearance: none;
   }
 
+  /* .close {
+    position: absolute;
+    top: -2rem;
+    right: 0;
+    background: black;
+  } */
+  .close:hover {
+    cursor: pointer;
+  }
+
   .close:before,
   .close:after {
     content: "";

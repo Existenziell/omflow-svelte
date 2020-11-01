@@ -21,6 +21,12 @@
       <p>{quote}</p>
     </div>
 
-    <a href="/teacher/{tag}" use:link component={Teacher}> Details </a>
+    <a
+      href="/teacher/{tag}"
+      class="button is-small is-primary"
+      use:link
+      component={Teacher}>
+      Details
+    </a>
   </div>
 </article>

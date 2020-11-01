@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const roleSchema = new Schema({
-  name: { type: String, required: true }
+  identifier: { type: String, required: true }
 });
 
 const Role = model('Role', roleSchema);

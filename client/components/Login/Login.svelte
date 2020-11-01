@@ -32,4 +32,4 @@
   };
 </script>
 
-<button class="btn btn-sm btn-outline-info" on:click={showDialog}>Login</button>
+<button class="button is-small" on:click={showDialog}>Login</button>

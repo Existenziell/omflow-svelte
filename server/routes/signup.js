@@ -67,7 +67,7 @@ router.post("/", async (req, res) => {
       if (info.messageId) {
         res.json({ message: 'Success! A verification email has been sent to ' + savedUser.email });
       } else {
-        res.json({ message: 'Mail not sent!' });
+        res.json({ message: 'Mail not sent!', info });
       }
 
     });

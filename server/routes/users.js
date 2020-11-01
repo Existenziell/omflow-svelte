@@ -15,7 +15,7 @@ router.post("/login", async (req, res) => {
     if (!email || !password)
       return res.status(400).json({ msg: "Not all fields have been entered." });
 
-    const user = await User.findOne({ email: email }).populate({ path: 'role', select: 'name' });
+    const user = await User.findOne({ email: email }).populate({ path: 'role', select: 'identifier' });
     if (!user)
       return res
         .status(400)
@@ -31,15 +31,29 @@ router.post("/login", async (req, res) => {
 
     // Set lastLogin for AdminSpace
     user.lastLogin = Date.now();
+
+    // ToDo: use flattened data... for localSTorage ease...
+    const data = {
+      token,
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role.identifier,
+      roleId: user.role._id,
+      location: user.location,
+      lastLogin: user.lastLogin,
+    }
+
     user.save()
       .then(() => {
+        // Response is the current loggedIn user + token -> localStorage
         res.json({
           token,
           user: {
             id: user._id,
             name: user.name,
             email: user.email,
-            role: user.role.name
+            role: user.role
           },
         });
       })
@@ -71,12 +85,13 @@ router.post(`/isTokenValid`, async (req, res) => {
 router.get("/", auth, async (req, res) => {
   try {
 
-    const user = await User.findById(req.user).populate({ path: 'role', select: 'name' });
+    const user = await User.findById(req.user).populate({ path: 'role', select: 'identifier' });
 
     // If user is a teacher, populate with own classes
     let practices = [];
     let teacher = {};
-    if (user.role.name === 'teacher') {
+
+    if (user.role.identifier === 'teacher') {
       teacher = await (await Teacher.findOne({ userId: user._id }));
       for (let p of teacher.practices) {
         practices.push(await Practice.findById(p._id)
@@ -92,7 +107,7 @@ router.get("/", auth, async (req, res) => {
       email: user.email,
       location: user.location,
       createdAt: user.createdAt,
-      role: user.role.name,
+      role: user.role.identifier,
       isVerified: user.isVerified,
       teacher, // If user === teacher, pass down teacher details to frontend
     });
@@ -103,8 +118,15 @@ router.get("/", auth, async (req, res) => {
 
 router.get("/all", auth, async (req, res) => {
   try {
-    const users = await User.find().populate({ path: 'role', select: 'name' });
-    res.json(users);
+    let users = await User.find().select('-password -__v').populate('role');
+    // Flatten 'role'
+    const flatUsers = await users.map(user => {
+      let o = Object.assign({}, user);
+      o._doc.role = user.role.identifier;
+      return o._doc;
+    })
+    res.json(flatUsers);
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

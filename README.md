@@ -17,7 +17,7 @@ parcel client/index.html
 ## Backend
 
 RESTful JSON API
-Node.js - express - mongoose - multer
+Node.js - express - mongoose
 
 ```
 nodemon server/server.js
@@ -49,6 +49,15 @@ heroku logs --tail -a omflow-svelte
 - [LinkedIn](https://www.linkedin.com/company/omflow)
 
 
+## ToDo
+
+- practices are reOccurring = true|false
+- Scheduler: timezones / display / filter
+- Navigation: burger
+- Glossary
+
+- localStorage strategy... Effects: stores.js / simplify and rename omflowUser -> omflower
+- Generalize store: isLoggedIn, user(omflower), logout, teachers, classes, ... (token)
 
 ---
 

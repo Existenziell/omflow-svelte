@@ -4,39 +4,30 @@
   import { token } from "../../stores";
   import { link } from "svelte-spa-router";
   import ImageUpload from "./ImageUpload.svelte";
+  import { log } from "console";
 
   let API_URL = process.env.API_URL;
+
+  let name, bio, address, quote, instagram, pose, styles, levels, coordinates;
   let allStyles = [];
   let allLevels = [];
-  let res = "";
-
-  let name,
-    description,
-    address,
-    quote,
-    instagram,
-    pose,
-    tag,
-    styles,
-    levels,
-    coordinatesX,
-    coordinatesY;
 
   let message = "";
 
   const submitForm = async () => {
     const file = document.querySelector("#file");
     const image = file.files[0];
-    const coordinates = JSON.stringify([coordinatesX, coordinatesY]);
     const tag = name.replace(/\s/g, "").toLowerCase();
+    let coords = coordinates.split(",");
+    coords = coords.map((c) => parseFloat(c.trim()));
 
     const formData = new FormData();
     formData.append("name", name);
     formData.append("tag", tag);
     formData.append("styles", JSON.stringify(styles));
     formData.append("levels", JSON.stringify(levels));
-    formData.append("coordinates", coordinates);
-    formData.append("description", description);
+    formData.append("coordinates", JSON.stringify(coords));
+    formData.append("description", bio);
     formData.append("address", address);
     formData.append("quote", quote);
     formData.append("instagram", instagram);
@@ -53,6 +44,8 @@
     if (response) {
       message = response.data;
       displayServerMsg(response.data);
+      // ToDo: Update store...
+      // $teachers = [...$teachers, response.data]
       push("/dashboard");
     }
   };
@@ -65,10 +58,10 @@
   };
 
   onMount(async () => {
-    res = await fetch(`${API_URL}/practices/levels`);
-    allLevels = await res.json();
-    res = await fetch(`${API_URL}/practices/styles`);
-    allStyles = await res.json();
+    const lvls = await fetch(`${API_URL}/practices/levels`);
+    allLevels = await lvls.json();
+    const styls = await fetch(`${API_URL}/practices/styles`);
+    allStyles = await styls.json();
   });
 </script>
 
@@ -89,70 +82,115 @@
   <form on:submit|preventDefault={submitForm} class="card p-5">
     <ImageUpload />
 
-    <div class="form-group">
-      <label for="">Name:</label>
-      <input bind:value={name} type="text" class="form-control" required />
-    </div>
-    <div class="form-group">
-      <label for="">Description:</label>
-      <textarea bind:value={description} class="form-control" />
-    </div>
-
-    <div class="form-group">
-      <label for="teacher-styles">Styles:</label>
-      <select bind:value={styles} multiple class="form-control">
-        {#each allStyles as style (style._id)}
-          <option value={style._id}>{style.identifier}</option>
-        {/each}
-      </select>
+    <div class="field">
+      <label for="" class="label">Name:</label>
+      <div class="control">
+        <input
+          bind:value={name}
+          class="input"
+          type="text"
+          placeholder="Teachers name"
+          required />
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="teacher-levels">Levels:</label>
-      <select bind:value={levels} multiple class="form-control">
-        {#each allLevels as level (level._id)}
-          <option value={level._id}>{level.identifier}</option>
-        {/each}
-      </select>
+    <div class="is-flex mt-5">
+      <div class="field">
+        <label for="" class="label">Styles:</label>
+        <div class="select is-multiple mr-5">
+          <select multiple bind:value={styles} size="5">
+            {#each allStyles as style (style._id)}
+              <option value={style._id}>{style.identifier}</option>
+            {/each}
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="" class="label">Levels:</label>
+        <div class="select is-multiple">
+          <select multiple bind:value={levels} size="5">
+            {#each allLevels as level (level._id)}
+              <option value={level._id}>{level.identifier}</option>
+            {/each}
+          </select>
+        </div>
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="">Location/Address:</label>
-      <input bind:value={address} type="text" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label for="">Coordinates (Longitude):</label>
-      <input
-        bind:value={coordinatesX}
-        type="number"
-        class="form-control"
-        required />
-    </div>
-    <div class="form-group">
-      <label for="">Coordinates (Latitude):</label>
-      <input
-        bind:value={coordinatesY}
-        type="number"
-        class="form-control"
-        required />
-    </div>
-    <div class="form-group">
-      <label for="">Quote:</label>
-      <input bind:value={quote} type="text" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label for="">Instagram:</label>
-      <input bind:value={instagram} type="text" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label for="">Preferred pose:</label>
-      <input bind:value={pose} type="text" class="form-control" />
+    <div class="field mt-5">
+      <label for="" class="label">Location/Address:</label>
+      <div class="control">
+        <input
+          bind:value={address}
+          class="input"
+          type="text"
+          placeholder="City, Country" />
+      </div>
     </div>
 
-    <div class="form-group">
+    <div class="field">
+      <label for="" class="label">Coordinates (Latitude/Longitude):</label>
+      <div class="control">
+        <input
+          bind:value={coordinates}
+          class="input"
+          type="text"
+          placeholder="Format: 15.3421, -13.34323 (https://www.latlong.net/)" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="" class="label">Bio:</label>
+      <div class="control">
+        <textarea
+          bind:value={bio}
+          class="textarea"
+          placeholder="Some more details" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="" class="label">Quote/Testimonial</label>
+      <div class="control">
+        <input
+          bind:value={quote}
+          class="input"
+          type="text"
+          placeholder="What do others say about this teacher" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="" class="label">Instagram</label>
+      <div class="control">
+        <input
+          bind:value={instagram}
+          class="input"
+          type="text"
+          placeholder="Instagram user name without @" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="" class="label">Preferred Pose:</label>
+      <div class="control">
+        <input
+          bind:value={pose}
+          class="input"
+          type="text"
+          placeholder="Asana name" />
+      </div>
+    </div>
+
+    <div class="field is-grouped mt-6">
       <p class="server-msg">{message}</p>
-      <input type="submit" class="btn btn-outline-info" value="Save" />
-      <a href="/dashboard" class="btn btn-outline-secondary" use:link>Cancel</a>
+
+      <div class="control">
+        <input type="submit" class="button is-primary" value="Save" />
+      </div>
+      <div class="control">
+        <a href="/dashboard" class="button" use:link>Cancel</a>
+      </div>
     </div>
   </form>
 </section>

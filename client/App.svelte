@@ -13,7 +13,7 @@
   } from "./stores";
   import { onMount } from "svelte";
 
-  // props coming from a component (main.js)
+  // Props coming from main.js
   export let appName;
 
   let user;
@@ -42,8 +42,9 @@
         localStorage.clear();
       } else {
         isLoggedIn.set(true);
+        // ToDo: Can be simplified
         token.set(user.token);
-        role.set(user.user.role);
+        role.set(user.user.role.identifier);
       }
     }
 
@@ -54,9 +55,18 @@
   });
 </script>
 
+<style>
+  /* Accounting for the fixed navbar */
+  .app {
+    padding-top: 52px;
+  }
+</style>
+
 <svelte:head>
   <title>{appName}</title>
 </svelte:head>
 
-<Header />
-<Router {routes} />
+<div class="app">
+  <Header />
+  <Router {routes} />
+</div>

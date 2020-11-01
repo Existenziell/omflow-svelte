@@ -23,6 +23,7 @@
   const handleSubmit = async () => {
     const user = { email, password };
     try {
+      // ToDk: Adapt to flattened result from server for easier localStorage and store structure.
       const res = await fetch(`${process.env.API_URL}/users/login`, {
         method: "POST",
         body: JSON.stringify(user),
@@ -31,10 +32,11 @@
       const result = await res.json();
 
       if (res.ok) {
+        // Set values in $store -> localStorage
         currentUser.set(result);
         token.set(result.token);
         isLoggedIn.set(true);
-        role.set(result.user.role);
+        role.set(result.user.role.identifier);
         _onCancel();
       } else {
         errorMessage = result.msg;
@@ -53,12 +55,6 @@
   input {
     width: 100%;
   }
-  .close {
-    position: absolute;
-    top: -2rem;
-    right: 0;
-    background: black;
-  }
   form {
     width: 80%;
     margin: 20px auto;
@@ -71,7 +67,6 @@
   }
 </style>
 
-<button class="close" on:click|preventDefault={_onCancel}> Close </button>
 <h2>{message}</h2>
 <div class=" card p-5">
   <form on:submit|preventDefault={handleSubmit}>
@@ -90,6 +85,6 @@
       placeholder="Password"
       required />
     <p class="error-msg">{errorMessage}</p>
-    <input type="submit" class="btn btn-info" value="Login" />
+    <input type="submit" class="button is-primary" value="Login" />
   </form>
 </div>

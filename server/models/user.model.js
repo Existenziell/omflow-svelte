@@ -7,6 +7,7 @@ const userSchema = new Schema({
   name: { type: String },
   location: { type: String, default: '' },
   role: { type: Schema.Types.ObjectId, ref: 'Role', default: '5f89edafe489166cf2de61c9' },
+  // ToDo: is the connection to teacher needed here?
   teacher: { type: Schema.Types.ObjectId, ref: 'Teacher' },
   lastLogin: { type: Date }
 }, {

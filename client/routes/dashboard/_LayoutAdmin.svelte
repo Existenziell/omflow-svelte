@@ -8,8 +8,34 @@
   $: $teachers;
   $: $classes;
 
-  let loading = true;
   let users;
+  let loading = true;
+
+  // Holds table sort state. Initialized to reflect table sorted by id column ascending.
+  let sortBy = { col: "name", ascending: true };
+
+  $: sort = (column) => {
+    if (sortBy.col == column) {
+      sortBy.ascending = !sortBy.ascending;
+    } else {
+      sortBy.col = column;
+      sortBy.ascending = true;
+    }
+
+    // Modifier to sorting function for ascending or descending
+    let sortModifier = sortBy.ascending ? 1 : -1;
+
+    let sort = (a, b) =>
+      a[column] < b[column]
+        ? -1 * sortModifier
+        : a[column] > b[column]
+        ? 1 * sortModifier
+        : 0;
+
+    $teachers = $teachers.sort(sort);
+    $classes = $classes.sort(sort);
+    users = users.sort(sort);
+  };
 
   onMount(async () => {
     const res = await fetch(`${process.env.API_URL}/users/all`, {
@@ -30,10 +56,13 @@
     margin-top: -30px;
     margin-bottom: 30px;
   }
+  th:hover {
+    cursor: pointer;
+  }
 </style>
 
 {#if loading}
-  <BarLoader color="#077D84" size="150" unit="px" />
+  <BarLoader color="#077D84" size="74" unit="px" />
 {:else}
   <section class="section">
     <h2 class="title is-5">Teachers</h2>
@@ -49,12 +78,12 @@
         <table class="table is-fullwidth">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>#Classes</th>
-              <th>Image</th>
-              <th>Location</th>
-              <th>Pose</th>
-              <th>Member Since</th>
+              <th on:click={sort('name')}>Name</th>
+              <th on:click={sort('practices')}>#Classes</th>
+              <th on:click={sort('image')}>Image</th>
+              <th on:click={sort('address')}>Location</th>
+              <th on:click={sort('pose')}>Pose</th>
+              <th on:click={sort('createdAt')}>Member Since</th>
             </tr>
           </thead>
           <tbody>
@@ -91,9 +120,9 @@
               <th>Level</th>
               <th>Style</th>
               <th>Teacher</th>
-              <th>Price</th>
-              <th>Duration</th>
-              <th>Date</th>
+              <th on:click={sort('price')}>Price</th>
+              <th on:click={sort('duration')}>Duration</th>
+              <th on:click={sort('date')}>Date</th>
             </tr>
           </thead>
           <tbody>
@@ -125,12 +154,12 @@
         <table class="table is-fullwidth">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Verified</th>
-              <th>Role</th>
-              <th>Created</th>
-              <th>Location</th>
+              <th on:click={sort('name')}>Name</th>
+              <th on:click={sort('email')}>Email</th>
+              <th on:click={sort('verified')}>Verified</th>
+              <th on:click={sort('role')}>Role</th>
+              <th on:click={sort('createdAt')}>Created</th>
+              <th on:click={sort('location')}>Location</th>
             </tr>
           </thead>
           <tbody>
@@ -139,7 +168,7 @@
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.isVerified}</td>
-                <td>{user.role.name}</td>
+                <td>{user.role}</td>
                 <td>{moment(user.createdAt, 'YYYYMMDD').fromNow()}</td>
                 <td>{user.location}</td>
               </tr>

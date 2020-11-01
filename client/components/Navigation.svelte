@@ -1,7 +1,10 @@
 <script>
-  import { link } from "svelte-spa-router";
+  import { link, push } from "svelte-spa-router";
   import { fly } from "svelte/transition";
   import { onMount } from "svelte";
+  import Login from "./Login/Login.svelte";
+  import Modal from "./Login/Modal.svelte";
+  import { isLoggedIn, logout } from "../stores";
 
   let visible = false;
 
@@ -15,58 +18,89 @@
     "Dashboard",
   ];
 
+  const logoutAndRedirect = () => {
+    // Reset localStorage and set values in store
+    logout();
+    // Navigate to / (Router)
+    push("/");
+  };
+
   onMount(async () => {
     visible = true;
   });
 </script>
 
 <style>
-  .navbar {
-    background: transparent;
-    width: 100%;
-  }
-
-  .nav-link {
+  .navbar-item a {
     font-size: 18px;
+    color: rgba(0, 0, 0, 0.5);
   }
-  a.nav-link:focus {
+  .navbar-item a:focus,
+  .navbar-item a:hover {
     font-weight: bold;
+  }
+  .navbar {
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.4);
   }
 </style>
 
 {#if visible}
-  <!--Navbar-->
   <nav
-    class="navbar navbar-expand-md navbar-light"
+    class="navbar is-fixed-top"
+    role="navigation"
+    aria-label="main navigation"
     in:fly={{ y: -200, duration: 500, delay: 400 }}>
-    <!-- Left / Navbar brand -->
-    <div class="navbar-nav">
-      <a href="/" class="navbar-brand mx-auto" use:link>Home</a>
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/" use:link aria-hidden="true">
+        <img src="/img/icons/logo-text-black.png" alt="Logo" />
+      </a>
+
+      <!-- Collapse button -->
+      <a
+        href="/"
+        role="button"
+        class="navbar-burger burger"
+        aria-label="menu"
+        aria-expanded="false"
+        data-target="navbar">
+        <span aria-hidden="true">About</span>
+        <span aria-hidden="true">Teachers</span>
+        <span aria-hidden="true">Classes</span>
+        <span aria-hidden="true">Classes</span>
+        <span aria-hidden="true">Schedule</span>
+        <span aria-hidden="true">MatchMe</span>
+        <span aria-hidden="true">Map</span>
+        <span aria-hidden="true">Dashboard</span>
+      </a>
     </div>
 
-    <!-- Collapse button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon" />
-    </button>
-
     <!-- Collapsible content -->
-    <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-      <!-- Center -->
-      <div class="mx-auto">
-        <ul class="navbar-nav">
-          {#each links as l}
-            <li class="nav-item">
-              <a href="/{l.toLowerCase()}" class="nav-link" use:link>{l}</a>
-            </li>
-          {/each}
-        </ul>
+    <div id="navbar" class="navbar-menu">
+      <ul class="navbar-end">
+        {#each links as l}
+          <li class="navbar-item">
+            <a href="/{l.toLowerCase()}" use:link>{l}</a>
+          </li>
+        {/each}
+      </ul>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            {#if $isLoggedIn}
+              <button
+                on:click|preventDefault={logoutAndRedirect}
+                class="button is-small">Logout</button>
+            {:else}
+              <Modal>
+                <Login />
+              </Modal>
+              <button
+                on:click={() => push('/signup')}
+                class="button is-primary is-small">Signup</button>
+            {/if}
+          </div>
+        </div>
       </div>
     </div>
   </nav>
