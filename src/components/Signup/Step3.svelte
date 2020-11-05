@@ -41,13 +41,14 @@
       <span class="required">*</span>
     </label>
     <div class="control">
-      <label class="radio">
-        <input type="radio" name="reschedule" required />Reschedule for a future
-        practice with this Omflow Teacher and receive 50% off my next practice
-      </label>
-      <label class="radio">
-        <input type="radio" name="reschedule" required />Attend the selected
-        practice with a substitute teacher if possible
+      <label>
+        <input type="radio" name="reschedule" class="mr-1" required />Reschedule
+        for a future practice with this teacher and receive 50% off your next
+        practice
+      </label><br />
+      <label>
+        <input type="radio" name="reschedule" class="mr-1" required />Attend the
+        selected practice with a substitute teacher if possible
       </label>
     </div>
   </div>
