@@ -7,9 +7,9 @@
 
 <section class="section">
   <h1 class="title is-3">Dashboard</h1>
-  {#if $currentUser.role === 'admin'}
+  {#if $currentUser && $currentUser.role === 'admin'}
     <LayoutAdmin />
-  {:else if $currentUser.role === 'teacher'}
+  {:else if $currentUser && $currentUser.role === 'teacher'}
     <LayoutTeacher />
   {:else}
     <LayoutPublic />

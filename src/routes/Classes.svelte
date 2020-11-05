@@ -2,6 +2,7 @@
   import { afterUpdate } from "svelte";
   import { BarLoader } from "svelte-loading-spinners";
   import { classes } from "../stores";
+  import { link } from "svelte-spa-router";
   import moment from "moment";
 
   let loading = true;
@@ -23,8 +24,10 @@
         <div class="column">
           <div class="card p-5 mb-4">
             <h2 class="title is-5">
-              {c.level.identifier}
-              {c.style.identifier}
+              <a href="/class/{c._id}" use:link>
+                {c.level.identifier}
+                {c.style.identifier}
+              </a>
             </h2>
             <p>{c.duration} min</p>
             <p>{c.teacher.name}</p>

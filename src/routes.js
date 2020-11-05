@@ -8,8 +8,8 @@ export default {
     asyncComponent: () => import('./routes/Home.svelte')
   }),
 
-  '/signup': wrap({
-    asyncComponent: () => import('./routes/Signup.svelte')
+  '/user/signup': wrap({
+    asyncComponent: () => import('./components/User/Signup.svelte')
   }),
 
   '/about': wrap({
@@ -33,7 +33,14 @@ export default {
     asyncComponent: () => import('./routes/Class.svelte')
   }),
 
+  '/signup/:id': wrap({
+    asyncComponent: () => import('./routes/Signup.svelte')
+  }),
+
   '/schedule/': wrap({
+    asyncComponent: () => import('./routes/Schedule.svelte')
+  }),
+  '/schedule/signup': wrap({
     asyncComponent: () => import('./routes/Schedule.svelte')
   }),
 
@@ -47,6 +54,10 @@ export default {
 
   '/dashboard/': wrap({
     asyncComponent: () => import('./routes/dashboard/Dashboard.svelte')
+  }),
+
+  '/app/': wrap({
+    asyncComponent: () => import('./components/WebApp/WebApp.svelte')
   }),
 
   // Catch-all - this is optional, but if present it must be the last

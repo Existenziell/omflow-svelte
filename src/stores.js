@@ -43,3 +43,5 @@ export const fetchClasses = async () => {
   }
 };
 
+// Multistep Signup form for classes
+export const currentSignupStep = writable(0);

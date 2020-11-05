@@ -84,12 +84,23 @@ $text: #646060;
 $error: #802000;
 $gradient: #3EAFC9;
 
-.is-primary {
-  background-color: rgba($brand, 0.75) !important;
+button.is-primary {
+  background-color: rgba($brand, 0.8) !important;
 
   &:hover {
     background-color: $brand !important;
   }
+}
+
+button.is-secondary {
+  background-color: rgba($orange, 0.9);
+  color: white;
+
+  &:hover {
+    background-color: $orange;
+    color:white;
+  }
+
 }
 
 /* ==========================================================================
@@ -109,3 +120,31 @@ Create Teacher (Necessary because not known at compile time)
   border-width: 10px;
   opacity: 0.3;
 }
+
+
+
+
+/* ==========================================================================
+Signup Form (Necessary to prevent repetion)
+========================================================================== */
+
+.navigation {
+  margin-top: 40px;
+}
+
+.indicator {
+  font-size: 40px;
+  border: 3px solid black;
+  border-radius: 50%;
+  width: 50px;
+  display: inline-block;
+  text-align: center;
+  height: 50px;
+  line-height: 32px;
+}
+
+
+
+
+@import 'webapp';
+

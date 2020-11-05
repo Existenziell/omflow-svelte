@@ -2,8 +2,8 @@
   import { link, push } from "svelte-spa-router";
   import { fly } from "svelte/transition";
   import { onMount } from "svelte";
-  import Login from "./Login/Login.svelte";
-  import Modal from "./Login/Modal.svelte";
+  import Login from "./User/Login.svelte";
+  import Modal from "./User/Modal.svelte";
   import { currentUser, logout } from "../stores";
 
   let visible = false;
@@ -16,6 +16,7 @@
     "MatchMe",
     "Map",
     "Dashboard",
+    "App",
   ];
 
   const logoutAndRedirect = () => {
@@ -71,6 +72,7 @@
         <span aria-hidden="true">MatchMe</span>
         <span aria-hidden="true">Map</span>
         <span aria-hidden="true">Dashboard</span>
+        <span aria-hidden="true">App</span>
       </a>
     </div>
 
@@ -93,10 +95,10 @@
                 class="button is-small">Logout</button>
             {:else}
               <Modal>
-                <Login />
+                <Login type="is-small" />
               </Modal>
               <button
-                on:click={() => push('/signup')}
+                on:click={() => push('/user/signup')}
                 class="button is-primary is-small">Signup</button>
             {/if}
           </div>

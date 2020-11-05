@@ -1,6 +1,8 @@
 <script>
   import { getContext } from "svelte";
-  import Dialog from "./Dialog.svelte";
+  import Dialog from "../User/Dialog.svelte";
+
+  export let type = "is-primary";
 
   const { open } = getContext("simple-modal");
 
@@ -32,4 +34,4 @@
   };
 </script>
 
-<button class="button is-small" on:click={showDialog}>Login</button>
+<button class="button {type}" on:click={showDialog}>Login</button>

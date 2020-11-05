@@ -3,7 +3,7 @@
 
   let name = "to Omflow :)";
   if ($currentUser) {
-    name = $currentUser.user.name;
+    name = $currentUser.name;
   }
 </script>
 
